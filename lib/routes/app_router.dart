@@ -3,6 +3,9 @@ import 'package:go_router/go_router.dart';
 
 import '../providers/onboarding_provider.dart';
 import '../routes/route_names.dart';
+import '../models/album.dart';
+import '../ui/detail/detail_screen.dart';
+import '../ui/favorites/favorites_screen.dart';
 import '../ui/home/home_screen.dart';
 import '../ui/onboarding/onboarding_screen.dart';
 import '../ui/splash/splash_screen.dart';
@@ -62,8 +65,7 @@ GoRouter createRouter(OnboardingProvider onboardingProvider) {
             routes: [
               GoRoute(
                 path: RouteNames.favorites,
-                builder: (context, state) =>
-                    const _PlaceholderScreen('Favorites'),
+                builder: (context, state) => const FavoritesScreen(),
               ),
             ],
           ),
@@ -80,7 +82,10 @@ GoRouter createRouter(OnboardingProvider onboardingProvider) {
       ),
       GoRoute(
         path: RouteNames.detail,
-        builder: (context, state) => const _PlaceholderScreen('Detail'),
+        builder: (context, state) {
+          final album = state.extra as Album;
+          return DetailScreen(album: album);
+        },
       ),
       GoRoute(
         path: RouteNames.search,

@@ -25,4 +25,3 @@ linter:
     sort_child_properties_last: true
     use_key_in_widget_constructors: true
     prefer_final_locals: true
-
