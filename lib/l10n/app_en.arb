@@ -1,0 +1,89 @@
+{
+  "@@locale": "en",
+
+  "appTitle": "Music Explorer",
+  "@appTitle": { "description": "Application title" },
+
+  "splashLoading": "Loading...",
+  "@splashLoading": { "description": "Splash screen loading text" },
+
+  "onboardingTitle1": "Discover Music",
+  "@onboardingTitle1": { "description": "Onboarding page 1 title" },
+  "onboardingDesc1": "Browse the latest album releases from around the world.",
+  "@onboardingDesc1": { "description": "Onboarding page 1 description" },
+
+  "onboardingTitle2": "Search & Explore",
+  "@onboardingTitle2": { "description": "Onboarding page 2 title" },
+  "onboardingDesc2": "Find your favorite albums and explore track details.",
+  "@onboardingDesc2": { "description": "Onboarding page 2 description" },
+
+  "onboardingTitle3": "Save Favorites",
+  "@onboardingTitle3": { "description": "Onboarding page 3 title" },
+  "onboardingDesc3": "Save albums to your favorites for quick offline access.",
+  "@onboardingDesc3": { "description": "Onboarding page 3 description" },
+
+  "onboardingNext": "Next",
+  "@onboardingNext": { "description": "Onboarding next button" },
+  "onboardingGetStarted": "Get Started",
+  "@onboardingGetStarted": { "description": "Onboarding final page button" },
+  "onboardingSkip": "Skip",
+  "@onboardingSkip": { "description": "Onboarding skip button" },
+
+  "homeTitle": "New Releases",
+  "@homeTitle": { "description": "Home screen title" },
+
+  "detailTitle": "Album Details",
+  "@detailTitle": { "description": "Detail screen title" },
+  "detailTracks": "Tracks",
+  "@detailTracks": { "description": "Track list section header" },
+  "detailReleaseDate": "Released: {date}",
+  "@detailReleaseDate": {
+    "description": "Release date label",
+    "placeholders": { "date": { "type": "String" } }
+  },
+  "detailSaveToFavorites": "Save to Favorites",
+  "@detailSaveToFavorites": { "description": "Save button label" },
+  "detailRemoveFromFavorites": "Remove from Favorites",
+  "@detailRemoveFromFavorites": { "description": "Remove button label" },
+  "detailSaved": "Saved to favorites!",
+  "@detailSaved": { "description": "Snackbar message after saving" },
+  "detailRemoved": "Removed from favorites.",
+  "@detailRemoved": { "description": "Snackbar message after removing" },
+
+  "favoritesTitle": "Favorites",
+  "@favoritesTitle": { "description": "Favorites screen title" },
+  "favoritesEmpty": "No favorites yet. Save albums from the detail screen!",
+  "@favoritesEmpty": { "description": "Empty state message on favorites" },
+  "favoritesSwipeHint": "Swipe to remove",
+  "@favoritesSwipeHint": { "description": "Swipe instructions" },
+
+  "settingsTitle": "Settings",
+  "@settingsTitle": { "description": "Settings screen title" },
+  "settingsLanguage": "Language",
+  "@settingsLanguage": { "description": "Language section header" },
+  "settingsEnglish": "English",
+  "@settingsEnglish": { "description": "English option" },
+  "settingsVietnamese": "Tiếng Việt",
+  "@settingsVietnamese": { "description": "Vietnamese option" },
+
+  "searchTitle": "Search Albums",
+  "@searchTitle": { "description": "Search screen title" },
+  "searchHint": "Search for albums...",
+  "@searchHint": { "description": "Search field hint text" },
+  "searchNoResults": "No results found.",
+  "@searchNoResults": { "description": "Empty search results" },
+
+  "errorGeneric": "Something went wrong. Please try again.",
+  "@errorGeneric": { "description": "Generic error message" },
+  "errorNetwork": "No internet connection. Please check your network.",
+  "@errorNetwork": { "description": "Network error message" },
+  "retryButton": "Retry",
+  "@retryButton": { "description": "Retry button label" },
+
+  "navHome": "Home",
+  "@navHome": { "description": "Bottom nav home label" },
+  "navFavorites": "Favorites",
+  "@navFavorites": { "description": "Bottom nav favorites label" },
+  "navSettings": "Settings",
+  "@navSettings": { "description": "Bottom nav settings label" }
+}
