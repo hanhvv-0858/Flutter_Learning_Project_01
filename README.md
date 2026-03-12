@@ -1,8 +1,8 @@
 # Music Explorer 🎵
 
-Ứng dụng mobile học Flutter thực chiến, sử dụng **Spotify Web API** để khám phá và lưu trữ album âm nhạc. Dự án được xây dựng theo kiến trúc 3 tầng (Presentation → Provider → Data), bao gồm đầy đủ các kỹ thuật Flutter cơ bản đến nâng cao.
+Ứng dụng mobile học Flutter, sử dụng **iTunes API** (miễn phí, không cần xác thực) để khám phá và lưu trữ album âm nhạc. Dự án được xây dựng theo kiến trúc 3 tầng (Presentation → Provider → Data), bao gồm đầy đủ các kỹ thuật Flutter cơ bản đến nâng cao.
 
-> **Branch**: `001-flutter-basics-app` | **Ngày tạo**: 2026-03-12 | **Nền tảng**: Android 6.0+ / iOS 13+
+**Nền tảng**: Android 6.0+ / iOS 13+
 
 ---
 
@@ -34,7 +34,7 @@
 | Internationalization | `flutter_localizations` + `intl` (EN / VI) |
 | Linting | `flutter_lints` ^6.0.0 (zero-warning policy) |
 | Testing | `mockito` ^5.4.0 + `build_runner` ^2.4.0 |
-| API | Spotify Web API (Client Credentials flow) |
+| API | iTunes RSS Feed + Search + Lookup API (free, no auth) |
 
 ---
 
@@ -61,7 +61,8 @@ Presentation  →  Provider  →  Data
 - Flutter SDK 3.x (stable channel) — kiểm tra bằng `flutter --version`
 - Dart SDK 3.x (đi kèm với Flutter)
 - Android Studio hoặc Xcode (cho emulator/simulator)
-- Tài khoản [Spotify Developer](https://developer.spotify.com/dashboard) để lấy `client_id` và `client_secret`
+
+> Ứng dụng sử dụng **iTunes API** — hoàn toàn miễn phí, **không cần API key hay tài khoản** nào.
 
 ### 1. Clone và checkout branch
 
@@ -77,37 +78,26 @@ git checkout 001-flutter-basics-app
 flutter pub get
 ```
 
-### 3. Cấu hình Spotify API
-
-Tạo file `.env` tại thư mục gốc (đã được thêm vào `.gitignore`):
-
-```
-SPOTIFY_CLIENT_ID=your_client_id_here
-SPOTIFY_CLIENT_SECRET=your_client_secret_here
-```
-
-Hoặc truyền trực tiếp khi chạy:
-
-```bash
-flutter run \
-  --dart-define=SPOTIFY_CLIENT_ID=your_client_id \
-  --dart-define=SPOTIFY_CLIENT_SECRET=your_client_secret
-```
-
-### 4. Sinh file localization
+### 3. Sinh file localization
 
 ```bash
 flutter gen-l10n
+```
+
+### 4. Tạo lại mock cho tests (nếu cần)
+
+```bash
+flutter pub run build_runner build --delete-conflicting-outputs
 ```
 
 ### 5. Chạy ứng dụng
 
 ```bash
 # Android emulator
-flutter run --dart-define=SPOTIFY_CLIENT_ID=xxx --dart-define=SPOTIFY_CLIENT_SECRET=yyy
+flutter run
 
 # iOS simulator
-flutter run -d iphone --dart-define=SPOTIFY_CLIENT_ID=xxx --dart-define=SPOTIFY_CLIENT_SECRET=yyy
+flutter run -d iphone
 
 # Xem danh sách thiết bị
 flutter devices
@@ -134,11 +124,11 @@ lib/
 │   ├── database/
 │   │   └── database_helper.dart        # Sqflite init + migration v1
 │   ├── sources/
-│   │   ├── spotify_remote_source.dart  # HTTP calls + auto-refresh token
+│   │   ├── itunes_remote_source.dart   # HTTP calls tới iTunes RSS/Search/Lookup
 │   │   ├── favorites_local_source.dart # Sqflite CRUD
 │   │   └── preferences_local_source.dart # SharedPreferences wrapper
 │   └── repositories/
-│       ├── music_repository.dart       # Abstraction cho Spotify source
+│       ├── music_repository.dart       # Abstraction cho iTunes source
 │       ├── favorites_repository.dart   # Abstraction cho favorites
 │       └── settings_repository.dart    # Abstraction cho preferences
 ├── providers/
@@ -180,6 +170,44 @@ lib/
 
 ---
 
+## Unit Tests
+
+73 tests — **0 failures** (`flutter test`).
+
+```
+test/
+├── mocks.dart                          # @GenerateMocks annotations
+├── mocks.mocks.dart                    # Auto-generated bởi build_runner
+├── models/
+│   ├── album_test.dart                 # fromItunesRss, fromItunesSearch, toJson, mặc định
+│   ├── track_test.dart                 # fromItunesLookup, toJson, formattedDuration
+│   └── favorite_test.dart              # fromAlbum, fromMap/toMap, toAlbum
+├── utils/
+│   └── api_exception_test.dart         # isUnauthorized/isForbidden/isRateLimited/isServerError
+├── data/
+│   ├── sources/
+│   │   └── itunes_remote_source_test.dart  # Mock http.Client, 3 phương thức, ApiException
+│   └── repositories/
+│       ├── music_repository_test.dart      # Delegation sang ItunesRemoteSource
+│       ├── favorites_repository_test.dart  # isFavorite bool, addFavorite, removeFavorite
+│       └── settings_repository_test.dart   # Delegation sang PreferencesLocalSource
+└── providers/
+    ├── onboarding_provider_test.dart   # isCompleted, completeOnboarding
+    ├── settings_provider_test.dart     # Locale khởi tạo, setLocale
+    ├── home_provider_test.dart         # fetchNewReleases success/error/loading, retry
+    ├── detail_provider_test.dart       # loadTracks, checkFavorite, toggleFavorite
+    ├── favorites_provider_test.dart    # loadFavorites, removeFavorite
+    └── search_provider_test.dart       # search/empty/error/trim/clear
+```
+
+Chạy toàn bộ tests:
+
+```bash
+flutter test
+```
+
+---
+
 ## Luồng điều hướng
 
 ```
@@ -198,7 +226,6 @@ Favorites [tab 1]
 Settings [tab 2]
   └── Chọn ngôn ngữ: English / Tiếng Việt
 ```
-
 ---
 
 ## Các lệnh thường dùng
@@ -209,6 +236,7 @@ Settings [tab 2]
 | `flutter gen-l10n` | Tạo lại code localization từ .arb |
 | `flutter analyze` | Kiểm tra lint (phải đạt zero warnings) |
 | `dart format lib/` | Format toàn bộ code Dart |
-| `flutter test` | Chạy tất cả unit + widget tests |
+| `flutter test` | Chạy tất cả 73 unit tests |
+| `flutter pub run build_runner build --delete-conflicting-outputs` | Tạo lại mock classes cho tests |
 | `flutter build apk --debug` | Build Android debug APK |
 | `flutter build ios --debug --no-codesign` | Build iOS debug |
