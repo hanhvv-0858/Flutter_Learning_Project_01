@@ -1,4 +1,4 @@
-/// Represents a music album from the Spotify API.
+/// Represents a music album from the iTunes API.
 class Album {
   final String id;
   final String name;
@@ -16,43 +16,82 @@ class Album {
     required this.albumType,
   });
 
-  /// Parse from Spotify API JSON response.
+  /// Parse from iTunes RSS Feed JSON entry.
   ///
-  /// The Spotify API nests artist names inside an `artists` array
-  /// and images inside an `images` array sorted by size (largest first).
-  factory Album.fromJson(Map<String, dynamic> json) {
-    // Extract the first artist name, defaulting to 'Unknown'
-    final artists = json['artists'] as List<dynamic>? ?? [];
-    final artistName = artists.isNotEmpty
-        ? (artists[0]['name'] as String? ?? 'Unknown')
-        : 'Unknown';
+  /// RSS feed nests data inside label objects:
+  /// `im:name.label`, `im:artist.label`, `im:image[].label`, `id.attributes.im:id`
+  factory Album.fromItunesRss(Map<String, dynamic> json) {
+    final id =
+        (json['id'] as Map<String, dynamic>?)?['attributes']?['im:id']
+            as String? ??
+        '';
 
-    // Prefer the 300px image (index 1), fall back to first available
-    final images = json['images'] as List<dynamic>? ?? [];
-    final imageUrl = images.length > 1
-        ? images[1]['url'] as String
-        : (images.isNotEmpty ? images[0]['url'] as String : '');
+    final name =
+        (json['im:name'] as Map<String, dynamic>?)?['label'] as String? ??
+        'Unknown';
+
+    final artistName =
+        (json['im:artist'] as Map<String, dynamic>?)?['label'] as String? ??
+        'Unknown';
+
+    // Use the largest image (index 2 = 170px), then upscale to 600px
+    final images = json['im:image'] as List<dynamic>? ?? [];
+    var imageUrl = '';
+    if (images.isNotEmpty) {
+      final raw =
+          (images.last as Map<String, dynamic>)['label'] as String? ?? '';
+      imageUrl = raw.replaceAll('170x170bb', '600x600bb');
+    }
+
+    final releaseDate =
+        (json['im:releaseDate']
+                as Map<String, dynamic>?)?['attributes']?['label']
+            as String?;
 
     return Album(
-      id: json['id'] as String? ?? '',
-      name: json['name'] as String? ?? 'Unknown',
+      id: id,
+      name: name,
       artistName: artistName,
       imageUrl: imageUrl,
-      releaseDate: json['release_date'] as String?,
-      albumType: json['album_type'] as String? ?? 'album',
+      releaseDate: releaseDate,
+      albumType: 'album',
+    );
+  }
+
+  /// Parse from iTunes Search API JSON result.
+  ///
+  /// Search API uses flat keys: `collectionId`, `collectionName`,
+  /// `artistName`, `artworkUrl100`.
+  factory Album.fromItunesSearch(Map<String, dynamic> json) {
+    final id = (json['collectionId'] ?? '').toString();
+
+    // Upscale artwork from 100x100 to 600x600
+    final rawArt = json['artworkUrl100'] as String? ?? '';
+    final imageUrl = rawArt.replaceAll('100x100bb', '600x600bb');
+
+    // releaseDate comes as ISO 8601 timestamp, extract date part
+    final rawDate = json['releaseDate'] as String?;
+    String? releaseDate;
+    if (rawDate != null && rawDate.length >= 10) {
+      releaseDate = rawDate.substring(0, 10);
+    }
+
+    return Album(
+      id: id,
+      name: json['collectionName'] as String? ?? 'Unknown',
+      artistName: json['artistName'] as String? ?? 'Unknown',
+      imageUrl: imageUrl,
+      releaseDate: releaseDate,
+      albumType: 'album',
     );
   }
 
   Map<String, dynamic> toJson() => {
     'id': id,
     'name': name,
-    'artists': [
-      {'name': artistName},
-    ],
-    'images': [
-      {'url': imageUrl},
-    ],
-    'release_date': releaseDate,
-    'album_type': albumType,
+    'artistName': artistName,
+    'imageUrl': imageUrl,
+    'releaseDate': releaseDate,
+    'albumType': albumType,
   };
 }

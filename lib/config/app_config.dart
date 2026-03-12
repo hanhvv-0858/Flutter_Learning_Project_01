@@ -1,30 +1,13 @@
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-
-/// Application configuration — reads Spotify credentials from `.env` at runtime.
+/// Application configuration — iTunes API base URLs and app constants.
 ///
-/// The `.env` file at the project root is bundled as an asset (see pubspec.yaml).
-/// It is loaded via `dotenv.load()` in `main()` before `runApp`.
-///
-/// Alternatively, values can still be overridden at build time via `--dart-define`:
-/// ```
-/// flutter run \
-///   --dart-define=SPOTIFY_CLIENT_ID=xxx \
-///   --dart-define=SPOTIFY_CLIENT_SECRET=yyy
-/// ```
+/// iTunes RSS Feed and Search APIs are completely free and require no
+/// API keys or authentication.
 class AppConfig {
   AppConfig._();
 
-  // Spotify API — reads from .env, falls back to --dart-define, then empty
-  static String get spotifyClientId =>
-      dotenv.env['SPOTIFY_CLIENT_ID'] ??
-      const String.fromEnvironment('SPOTIFY_CLIENT_ID', defaultValue: '');
-
-  static String get spotifyClientSecret =>
-      dotenv.env['SPOTIFY_CLIENT_SECRET'] ??
-      const String.fromEnvironment('SPOTIFY_CLIENT_SECRET', defaultValue: '');
-
-  static const String spotifyAccountsBaseUrl = 'https://accounts.spotify.com';
-  static const String spotifyApiBaseUrl = 'https://api.spotify.com/v1';
+  // iTunes API
+  static const String itunesBaseUrl = 'https://itunes.apple.com';
+  static const String itunesCountryCode = 'us';
 
   // Splash
   static const Duration splashDuration = Duration(seconds: 2);
