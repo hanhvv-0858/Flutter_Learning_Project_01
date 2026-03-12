@@ -212,32 +212,3 @@ Settings [tab 2]
 | `flutter test` | Chạy tất cả unit + widget tests |
 | `flutter build apk --debug` | Build Android debug APK |
 | `flutter build ios --debug --no-codesign` | Build iOS debug |
-
----
-
-## Tiến độ thực hiện
-
-| Phase | Nội dung | Trạng thái |
-|-------|----------|-----------|
-| Phase 1 | Setup: project, pubspec, lint, l10n, config | ✅ Hoàn thành |
-| Phase 2 | Foundation: models, data sources, repositories, widgets, l10n ARBs | ✅ Hoàn thành |
-| Phase 3 | US1: Splash + Onboarding + GoRouter + main.dart | ✅ Hoàn thành |
-| Phase 4 | US2: Home screen + HomeProvider + AlbumCard | 🔄 Đang làm |
-| Phase 5 | US3: Detail screen + tracks + favorite toggle | ⏳ Chờ |
-| Phase 6 | US4: Favorites screen + offline | ⏳ Chờ |
-| Phase 7 | US5: Settings + language switching | ⏳ Chờ |
-| Phase 8 | US6: Search + animations | ⏳ Chờ |
-| Phase 9 | Polish: format, analyze, build validation | ⏳ Chờ |
-
----
-
-## Tài liệu kỹ thuật
-
-Xem thêm trong thư mục `specs/001-flutter-basics-app/`:
-
-- [`spec.md`](specs/001-flutter-basics-app/spec.md) — User stories và acceptance criteria
-- [`plan.md`](specs/001-flutter-basics-app/plan.md) — Kế hoạch kỹ thuật & kiến trúc
-- [`data-model.md`](specs/001-flutter-basics-app/data-model.md) — Mô hình dữ liệu (Album, Track, Favorite, UserPreference)
-- [`contracts/spotify-api.md`](specs/001-flutter-basics-app/contracts/spotify-api.md) — Spotify API endpoints & response schemas
-- [`quickstart.md`](specs/001-flutter-basics-app/quickstart.md) — Hướng dẫn cài đặt chi tiết
-- [`tasks.md`](specs/001-flutter-basics-app/tasks.md) — Danh sách 62 tasks theo phase
