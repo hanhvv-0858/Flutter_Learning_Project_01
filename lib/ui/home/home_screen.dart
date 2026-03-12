@@ -9,7 +9,7 @@ import '../../ui/widgets/error_view.dart';
 import '../../ui/widgets/loading_view.dart';
 import 'album_card.dart';
 
-/// Home screen displaying new album releases from Spotify.
+/// Home screen displaying top albums from iTunes.
 ///
 /// Shows tri-state UI: loading → data (ListView of AlbumCard) → error.
 class HomeScreen extends StatefulWidget {

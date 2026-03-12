@@ -12,21 +12,24 @@ class Track {
     required this.trackNumber,
   });
 
-  /// Parse from Spotify API JSON response.
-  factory Track.fromJson(Map<String, dynamic> json) {
+  /// Parse from iTunes Lookup API JSON response.
+  ///
+  /// Lookup returns `trackId` (int), `trackName`, `trackTimeMillis`,
+  /// and `trackNumber`.
+  factory Track.fromItunesLookup(Map<String, dynamic> json) {
     return Track(
-      id: json['id'] as String? ?? '',
-      name: json['name'] as String? ?? 'Unknown',
-      durationMs: json['duration_ms'] as int? ?? 0,
-      trackNumber: json['track_number'] as int? ?? 0,
+      id: (json['trackId'] ?? '').toString(),
+      name: json['trackName'] as String? ?? 'Unknown',
+      durationMs: json['trackTimeMillis'] as int? ?? 0,
+      trackNumber: json['trackNumber'] as int? ?? 0,
     );
   }
 
   Map<String, dynamic> toJson() => {
-    'id': id,
-    'name': name,
-    'duration_ms': durationMs,
-    'track_number': trackNumber,
+    'trackId': id,
+    'trackName': name,
+    'trackTimeMillis': durationMs,
+    'trackNumber': trackNumber,
   };
 
   /// Format duration as mm:ss for display.

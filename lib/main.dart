@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -9,8 +8,8 @@ import 'data/repositories/favorites_repository.dart';
 import 'data/repositories/music_repository.dart';
 import 'data/repositories/settings_repository.dart';
 import 'data/sources/favorites_local_source.dart';
+import 'data/sources/itunes_remote_source.dart';
 import 'data/sources/preferences_local_source.dart';
-import 'data/sources/spotify_remote_source.dart';
 import 'providers/detail_provider.dart';
 import 'providers/favorites_provider.dart';
 import 'providers/home_provider.dart';
@@ -20,21 +19,18 @@ import 'providers/settings_provider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Load .env file (bundled as asset); ignore if missing (e.g. CI with --dart-define)
-  await dotenv.load(fileName: '.env', mergeWith: {}).catchError((_) {});
-
   // Initialize SharedPreferences before runApp
   final prefs = await SharedPreferences.getInstance();
 
   // Data sources
   final prefsSource = PreferencesLocalSource(prefs);
   final dbHelper = DatabaseHelper();
-  final spotifySource = SpotifyRemoteSource();
+  final itunesSource = ItunesRemoteSource();
   final favoritesSource = FavoritesLocalSource(dbHelper);
 
   // Repositories
   final settingsRepo = SettingsRepository(prefsSource);
-  final musicRepo = MusicRepository(spotifySource);
+  final musicRepo = MusicRepository(itunesSource);
   final favoritesRepo = FavoritesRepository(favoritesSource);
 
   runApp(
