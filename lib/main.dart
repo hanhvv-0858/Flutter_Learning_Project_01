@@ -14,6 +14,7 @@ import 'providers/detail_provider.dart';
 import 'providers/favorites_provider.dart';
 import 'providers/home_provider.dart';
 import 'providers/onboarding_provider.dart';
+import 'providers/search_provider.dart';
 import 'providers/settings_provider.dart';
 
 void main() async {
@@ -43,6 +44,7 @@ void main() async {
           create: (_) => DetailProvider(musicRepo, favoritesRepo),
         ),
         ChangeNotifierProvider(create: (_) => FavoritesProvider(favoritesRepo)),
+        ChangeNotifierProvider(create: (_) => SearchProvider(musicRepo)),
         Provider.value(value: musicRepo),
         Provider.value(value: favoritesRepo),
       ],
