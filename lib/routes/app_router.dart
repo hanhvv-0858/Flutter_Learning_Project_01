@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import '../providers/onboarding_provider.dart';
 import '../routes/route_names.dart';
+import '../ui/home/home_screen.dart';
 import '../ui/onboarding/onboarding_screen.dart';
 import '../ui/splash/splash_screen.dart';
 import '../ui/widgets/bottom_nav_shell.dart';
@@ -53,7 +54,7 @@ GoRouter createRouter(OnboardingProvider onboardingProvider) {
             routes: [
               GoRoute(
                 path: RouteNames.home,
-                builder: (context, state) => const _PlaceholderScreen('Home'),
+                builder: (context, state) => const HomeScreen(),
               ),
             ],
           ),
