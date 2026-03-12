@@ -1,0 +1,50 @@
+{
+  "@@locale": "vi",
+
+  "appTitle": "Khám Phá Âm Nhạc",
+  "splashLoading": "Đang tải...",
+
+  "onboardingTitle1": "Khám Phá Âm Nhạc",
+  "onboardingDesc1": "Duyệt qua các album mới phát hành từ khắp nơi trên thế giới.",
+
+  "onboardingTitle2": "Tìm Kiếm & Khám Phá",
+  "onboardingDesc2": "Tìm album yêu thích của bạn và khám phá chi tiết bài hát.",
+
+  "onboardingTitle3": "Lưu Yêu Thích",
+  "onboardingDesc3": "Lưu album vào danh sách yêu thích để truy cập ngoại tuyến nhanh chóng.",
+
+  "onboardingNext": "Tiếp",
+  "onboardingGetStarted": "Bắt Đầu",
+  "onboardingSkip": "Bỏ qua",
+
+  "homeTitle": "Album Mới",
+
+  "detailTitle": "Chi Tiết Album",
+  "detailTracks": "Danh sách bài hát",
+  "detailReleaseDate": "Phát hành: {date}",
+  "detailSaveToFavorites": "Lưu vào Yêu thích",
+  "detailRemoveFromFavorites": "Xóa khỏi Yêu thích",
+  "detailSaved": "Đã lưu vào yêu thích!",
+  "detailRemoved": "Đã xóa khỏi yêu thích.",
+
+  "favoritesTitle": "Yêu Thích",
+  "favoritesEmpty": "Chưa có mục yêu thích. Lưu album từ màn hình chi tiết!",
+  "favoritesSwipeHint": "Vuốt để xóa",
+
+  "settingsTitle": "Cài Đặt",
+  "settingsLanguage": "Ngôn ngữ",
+  "settingsEnglish": "English",
+  "settingsVietnamese": "Tiếng Việt",
+
+  "searchTitle": "Tìm Kiếm Album",
+  "searchHint": "Tìm kiếm album...",
+  "searchNoResults": "Không tìm thấy kết quả.",
+
+  "errorGeneric": "Đã xảy ra lỗi. Vui lòng thử lại.",
+  "errorNetwork": "Không có kết nối mạng. Vui lòng kiểm tra mạng của bạn.",
+  "retryButton": "Thử lại",
+
+  "navHome": "Trang chủ",
+  "navFavorites": "Yêu thích",
+  "navSettings": "Cài đặt"
+}
