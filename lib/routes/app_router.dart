@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../providers/onboarding_provider.dart';
@@ -8,22 +7,10 @@ import '../ui/detail/detail_screen.dart';
 import '../ui/favorites/favorites_screen.dart';
 import '../ui/home/home_screen.dart';
 import '../ui/onboarding/onboarding_screen.dart';
+import '../ui/search/search_screen.dart';
+import '../ui/settings/settings_screen.dart';
 import '../ui/splash/splash_screen.dart';
 import '../ui/widgets/bottom_nav_shell.dart';
-
-// Placeholder screens — replaced in later phases
-class _PlaceholderScreen extends StatelessWidget {
-  final String title;
-  const _PlaceholderScreen(this.title);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(title)),
-      body: Center(child: Text(title)),
-    );
-  }
-}
 
 /// Application router using GoRouter with ShellRoute for bottom navigation.
 GoRouter createRouter(OnboardingProvider onboardingProvider) {
@@ -73,8 +60,7 @@ GoRouter createRouter(OnboardingProvider onboardingProvider) {
             routes: [
               GoRoute(
                 path: RouteNames.settings,
-                builder: (context, state) =>
-                    const _PlaceholderScreen('Settings'),
+                builder: (context, state) => const SettingsScreen(),
               ),
             ],
           ),
@@ -89,7 +75,7 @@ GoRouter createRouter(OnboardingProvider onboardingProvider) {
       ),
       GoRoute(
         path: RouteNames.search,
-        builder: (context, state) => const _PlaceholderScreen('Search'),
+        builder: (context, state) => const SearchScreen(),
       ),
     ],
   );
