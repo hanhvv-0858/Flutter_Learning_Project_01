@@ -34,8 +34,9 @@ class SearchProvider extends ChangeNotifier {
       _results = await _musicRepository.searchAlbums(query.trim());
       _isEmpty = _results.isEmpty;
       _errorMessage = null;
-    } catch (e) {
+    } catch (e, stackTrace) {
       _errorMessage = e.toString();
+      debugPrint('SearchProvider.search error: $e\n$stackTrace');
     } finally {
       _isLoading = false;
       notifyListeners();

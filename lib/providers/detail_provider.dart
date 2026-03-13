@@ -30,8 +30,9 @@ class DetailProvider extends ChangeNotifier {
     try {
       _tracks = await _musicRepository.getAlbumTracks(albumId);
       _tracksError = null;
-    } catch (e) {
+    } catch (e, stackTrace) {
       _tracksError = e.toString();
+      debugPrint('DetailProvider.loadTracks error: $e\n$stackTrace');
     } finally {
       _isLoadingTracks = false;
       notifyListeners();

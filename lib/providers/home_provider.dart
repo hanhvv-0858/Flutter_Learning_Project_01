@@ -25,8 +25,9 @@ class HomeProvider extends ChangeNotifier {
     try {
       _albums = await _musicRepository.getNewReleases();
       _errorMessage = null;
-    } catch (e) {
+    } catch (e, stackTrace) {
       _errorMessage = e.toString();
+      debugPrint('HomeProvider.fetchNewReleases error: $e\n$stackTrace');
     } finally {
       _isLoading = false;
       notifyListeners();
