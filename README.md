@@ -240,3 +240,16 @@ Settings [tab 2]
 | `flutter pub run build_runner build --delete-conflicting-outputs` | Tạo lại mock classes cho tests |
 | `flutter build apk --debug` | Build Android debug APK |
 | `flutter build ios --debug --no-codesign` | Build iOS debug |
+
+## Screenshot apps
+### Home
+<img width="312" height="680" alt="Simulator Screenshot - iPhone 16e - 2026-03-13 at 00 17 30" src="https://github.com/user-attachments/assets/04a73596-80e9-4ac8-9145-5f4ba858f699" />
+
+### Detail
+<img width="312" height="680" alt="Simulator Screenshot - iPhone 16e - 2026-03-13 at 00 17 35" src="https://github.com/user-attachments/assets/b93580ec-aae6-4e9c-8274-d3c233a40451" />
+
+### Favorite
+<img width="312" height="680" alt="Simulator Screenshot - iPhone 16e - 2026-03-13 at 10 48 15" src="https://github.com/user-attachments/assets/6fe58cee-5905-49c7-8df3-185ff0284a2c" />
+
+### Settings
+<img width="312" height="680" alt="Simulator Screenshot - iPhone 16e - 2026-03-13 at 01 03 37" src="https://github.com/user-attachments/assets/cec561ca-34bb-455f-9fcf-9e50d6861b88" />
