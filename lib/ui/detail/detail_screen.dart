@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../../l10n/app_localizations.dart';
 import '../../models/album.dart';
 import '../../providers/detail_provider.dart';
+import '../../providers/favorites_provider.dart';
 import '../../ui/widgets/error_view.dart';
 import '../../ui/widgets/loading_view.dart';
 import 'track_list_tile.dart';
@@ -117,6 +118,7 @@ class _DetailScreenState extends State<DetailScreen> {
                             onPressed: () async {
                               await provider.toggleFavorite(widget.album);
                               if (!context.mounted) return;
+                              context.read<FavoritesProvider>().loadFavorites();
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(content: Text(l10n.detailRemoved)),
                               );
@@ -129,6 +131,7 @@ class _DetailScreenState extends State<DetailScreen> {
                             onPressed: () async {
                               await provider.toggleFavorite(widget.album);
                               if (!context.mounted) return;
+                              context.read<FavoritesProvider>().loadFavorites();
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(content: Text(l10n.detailSaved)),
                               );

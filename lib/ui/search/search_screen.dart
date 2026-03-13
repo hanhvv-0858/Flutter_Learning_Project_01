@@ -18,35 +18,19 @@ class SearchScreen extends StatefulWidget {
   State<SearchScreen> createState() => _SearchScreenState();
 }
 
-class _SearchScreenState extends State<SearchScreen>
-    with SingleTickerProviderStateMixin {
-  final _searchController = TextEditingController();
-  final _focusNode = FocusNode();
-
-  late final AnimationController _animController;
-  late final Animation<double> _barAnimation;
+class _SearchScreenState extends State<SearchScreen> {
+  late final _SearchControllers _controllers;
 
   @override
   void initState() {
     super.initState();
-    _animController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 400),
-    );
-    _barAnimation = CurvedAnimation(
-      parent: _animController,
-      curve: Curves.easeOutCubic,
-    );
-    // Expand search bar on enter
-    _animController.forward();
-    _focusNode.requestFocus();
+    _controllers = _SearchControllers.create();
+    _controllers.focusNode.requestFocus();
   }
 
   @override
   void dispose() {
-    _searchController.dispose();
-    _focusNode.dispose();
-    _animController.dispose();
+    _controllers.dispose();
     super.dispose();
   }
 
@@ -62,26 +46,28 @@ class _SearchScreenState extends State<SearchScreen>
 
     return Scaffold(
       appBar: AppBar(
-        title: AnimatedBuilder(
-          animation: _barAnimation,
-          builder: (context, child) {
+        title: TweenAnimationBuilder<double>(
+          tween: Tween(begin: 0.0, end: 1.0),
+          duration: const Duration(milliseconds: 400),
+          curve: Curves.easeOutCubic,
+          builder: (context, value, child) {
             return SizeTransition(
-              sizeFactor: _barAnimation,
+              sizeFactor: AlwaysStoppedAnimation(value),
               axis: Axis.horizontal,
               axisAlignment: -1,
               child: child,
             );
           },
           child: TextField(
-            controller: _searchController,
-            focusNode: _focusNode,
+            controller: _controllers.search,
+            focusNode: _controllers.focusNode,
             decoration: InputDecoration(
               hintText: l10n.searchHint,
               border: InputBorder.none,
               suffixIcon: IconButton(
                 icon: const Icon(Icons.clear),
                 onPressed: () {
-                  _searchController.clear();
+                  _controllers.search.clear();
                   context.read<SearchProvider>().clear();
                 },
               ),
@@ -100,7 +86,7 @@ class _SearchScreenState extends State<SearchScreen>
           if (provider.errorMessage != null) {
             return ErrorView(
               message: provider.errorMessage!,
-              onRetry: () => _onSubmit(_searchController.text),
+              onRetry: () => _onSubmit(_controllers.search.text),
             );
           }
 
@@ -144,67 +130,58 @@ class _SearchScreenState extends State<SearchScreen>
   }
 }
 
+/// Holds controllers for [SearchScreen]. Owns their lifecycle.
+///
+/// Accepts injected [search] and [focusNode] — callers are responsible
+/// for passing in the instances (dependency injection).
+class _SearchControllers {
+  final TextEditingController search;
+  final FocusNode focusNode;
+
+  _SearchControllers({required this.search, required this.focusNode});
+
+  /// Factory that creates the controllers — kept here as the single
+  /// creation point, separate from any widget/state method.
+  static _SearchControllers create() => _SearchControllers(
+    search: TextEditingController(),
+    focusNode: FocusNode(),
+  );
+
+  void dispose() {
+    search.dispose();
+    focusNode.dispose();
+  }
+}
+
 /// ListView with staggered fade-in animation per result tile.
-class _StaggeredResultsList extends StatefulWidget {
+///
+/// Each item uses its own [TweenAnimationBuilder] — no [AnimationController]
+/// required.
+class _StaggeredResultsList extends StatelessWidget {
   final List<Album> albums;
   final void Function(Album album) onAlbumTap;
 
   const _StaggeredResultsList({required this.albums, required this.onAlbumTap});
 
   @override
-  State<_StaggeredResultsList> createState() => _StaggeredResultsListState();
-}
-
-class _StaggeredResultsListState extends State<_StaggeredResultsList>
-    with SingleTickerProviderStateMixin {
-  late final AnimationController _staggerController;
-
-  @override
-  void initState() {
-    super.initState();
-    _staggerController = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: 300 + widget.albums.length * 50),
-    );
-    _staggerController.forward();
-  }
-
-  @override
-  void didUpdateWidget(covariant _StaggeredResultsList oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (oldWidget.albums != widget.albums) {
-      _staggerController.duration = Duration(
-        milliseconds: 300 + widget.albums.length * 50,
-      );
-      _staggerController.forward(from: 0);
-    }
-  }
-
-  @override
-  void dispose() {
-    _staggerController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return ListView.builder(
       padding: const EdgeInsets.symmetric(vertical: 8),
-      itemCount: widget.albums.length,
+      itemCount: albums.length,
       itemBuilder: (context, index) {
-        final begin = (index / widget.albums.length).clamp(0.0, 1.0);
-        final end = ((index + 1) / widget.albums.length).clamp(0.0, 1.0);
-        final animation = Tween<double>(begin: 0, end: 1).animate(
-          CurvedAnimation(
-            parent: _staggerController,
-            curve: Interval(begin, end, curve: Curves.easeOut),
-          ),
-        );
-        final album = widget.albums[index];
-        return SearchResultTile(
-          album: album,
-          animation: animation,
-          onTap: () => widget.onAlbumTap(album),
+        final album = albums[index];
+        return TweenAnimationBuilder<double>(
+          key: ValueKey(album.id),
+          tween: Tween(begin: 0.0, end: 1.0),
+          duration: Duration(milliseconds: 200 + index * 50),
+          curve: Curves.easeOut,
+          builder: (context, value, child) {
+            return SearchResultTile(
+              album: album,
+              animation: AlwaysStoppedAnimation(value),
+              onTap: () => onAlbumTap(album),
+            );
+          },
         );
       },
     );

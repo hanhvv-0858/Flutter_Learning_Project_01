@@ -10,8 +10,8 @@
 
 | # | Màn hình | Mô tả | Độ ưu tiên |
 |---|----------|-------|------------|
-| US1 | Splash & Onboarding | Splash animation (fade-in + scale), tutorial 3 trang, lưu trạng thái bằng SharedPreferences | P1 🎯 MVP |
-| US2 | Home — Khám phá âm nhạc | Danh sách New Releases từ Spotify API, loading/error/data states | P2 |
+| US1 | Splash & Onboarding | Splash animation (fade-in + scale), tutorial 3 trang, lưu trạng thái bằng SharedPreferences | P1 |
+| US2 | Home — Khám phá âm nhạc | Danh sách New Releases từ iTunes API, loading/error/data states | P2 |
 | US3 | Detail — Chi tiết album | Danh sách track, thời lượng, lưu/xóa yêu thích (Sqflite) | P3 |
 | US4 | Favorites — Ngoại tuyến | Danh sách album đã lưu, hoạt động offline, vuốt để xóa | P4 |
 | US5 | Settings — Cài đặt | Chuyển ngôn ngữ EN/VI ngay lập tức, lưu qua lần khởi động | P5 |

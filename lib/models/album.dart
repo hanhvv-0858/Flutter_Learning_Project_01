@@ -1,3 +1,6 @@
+const _kUnknown = 'Unknown';
+const _kImageSize = '600x600bb';
+
 /// Represents a music album from the iTunes API.
 class Album {
   final String id;
@@ -28,11 +31,11 @@ class Album {
 
     final name =
         (json['im:name'] as Map<String, dynamic>?)?['label'] as String? ??
-        'Unknown';
+        _kUnknown;
 
     final artistName =
         (json['im:artist'] as Map<String, dynamic>?)?['label'] as String? ??
-        'Unknown';
+        _kUnknown;
 
     // Use the largest image (index 2 = 170px), then upscale to 600px
     final images = json['im:image'] as List<dynamic>? ?? [];
@@ -40,7 +43,7 @@ class Album {
     if (images.isNotEmpty) {
       final raw =
           (images.last as Map<String, dynamic>)['label'] as String? ?? '';
-      imageUrl = raw.replaceAll('170x170bb', '600x600bb');
+      imageUrl = raw.replaceAll('170x170bb', _kImageSize);
     }
 
     final releaseDate =
@@ -67,7 +70,7 @@ class Album {
 
     // Upscale artwork from 100x100 to 600x600
     final rawArt = json['artworkUrl100'] as String? ?? '';
-    final imageUrl = rawArt.replaceAll('100x100bb', '600x600bb');
+    final imageUrl = rawArt.replaceAll('100x100bb', _kImageSize);
 
     // releaseDate comes as ISO 8601 timestamp, extract date part
     final rawDate = json['releaseDate'] as String?;
@@ -78,8 +81,8 @@ class Album {
 
     return Album(
       id: id,
-      name: json['collectionName'] as String? ?? 'Unknown',
-      artistName: json['artistName'] as String? ?? 'Unknown',
+      name: json['collectionName'] as String? ?? _kUnknown,
+      artistName: json['artistName'] as String? ?? _kUnknown,
       imageUrl: imageUrl,
       releaseDate: releaseDate,
       albumType: 'album',
