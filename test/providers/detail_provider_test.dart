@@ -1,9 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
-import 'package:example_flutter/models/album.dart';
-import 'package:example_flutter/models/track.dart';
-import 'package:example_flutter/providers/detail_provider.dart';
+import 'package:flutter_learning_project_1/models/album.dart';
+import 'package:flutter_learning_project_1/models/track.dart';
+import 'package:flutter_learning_project_1/providers/detail_provider.dart';
 
 import '../mocks.mocks.dart';
 

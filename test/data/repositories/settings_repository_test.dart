@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
-import 'package:example_flutter/data/repositories/settings_repository.dart';
+import 'package:flutter_learning_project_1/data/repositories/settings_repository.dart';
 
 import '../../mocks.mocks.dart';
 

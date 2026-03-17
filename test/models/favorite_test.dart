@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:example_flutter/models/album.dart';
-import 'package:example_flutter/models/favorite.dart';
+import 'package:flutter_learning_project_1/models/album.dart';
+import 'package:flutter_learning_project_1/models/favorite.dart';
 
 void main() {
   group('Favorite.fromAlbum', () {

@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
-import 'package:example_flutter/models/favorite.dart';
-import 'package:example_flutter/providers/favorites_provider.dart';
+import 'package:flutter_learning_project_1/models/favorite.dart';
+import 'package:flutter_learning_project_1/providers/favorites_provider.dart';
 
 import '../mocks.mocks.dart';
 

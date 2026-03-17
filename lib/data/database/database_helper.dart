@@ -3,7 +3,7 @@ import 'package:sqflite/sqflite.dart';
 
 /// Manages Sqflite database initialization with versioned migrations.
 class DatabaseHelper {
-  static const _databaseName = 'example_flutter.db';
+  static const _databaseName = 'flutter_learning_project_1.db';
   static const _databaseVersion = 1;
 
   Database? _database;

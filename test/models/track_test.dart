@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:example_flutter/models/track.dart';
+import 'package:flutter_learning_project_1/models/track.dart';
 
 void main() {
   group('Track.fromItunesLookup', () {
