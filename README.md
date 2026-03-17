@@ -68,8 +68,8 @@ Presentation  →  Provider  →  Data
 
 ```bash
 git clone <repo-url>
-cd example_flutter
-git checkout 001-flutter-basics-app
+cd flutter_learning_project_1
+git checkout master
 ```
 
 ### 2. Cài đặt dependencies
