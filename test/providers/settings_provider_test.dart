@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
-import 'package:example_flutter/providers/settings_provider.dart';
+import 'package:flutter_learning_project_1/providers/settings_provider.dart';
 
 import '../mocks.mocks.dart';
 

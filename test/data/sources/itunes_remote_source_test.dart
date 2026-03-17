@@ -4,8 +4,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:mockito/mockito.dart';
 
-import 'package:example_flutter/data/sources/itunes_remote_source.dart';
-import 'package:example_flutter/utils/api_exception.dart';
+import 'package:flutter_learning_project_1/data/sources/itunes_remote_source.dart';
+import 'package:flutter_learning_project_1/utils/api_exception.dart';
 
 import '../../mocks.mocks.dart';
 

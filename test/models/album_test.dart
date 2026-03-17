@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:example_flutter/models/album.dart';
+import 'package:flutter_learning_project_1/models/album.dart';
 
 void main() {
   group('Album.fromItunesRss', () {

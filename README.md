@@ -69,7 +69,6 @@ Presentation  →  Provider  →  Data
 ```bash
 git clone <repo-url>
 cd flutter_learning_project_1
-git checkout master
 ```
 
 ### 2. Cài đặt dependencies

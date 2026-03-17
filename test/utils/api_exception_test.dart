@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:example_flutter/utils/api_exception.dart';
+import 'package:flutter_learning_project_1/utils/api_exception.dart';
 
 void main() {
   group('ApiException', () {
