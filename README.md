@@ -112,7 +112,7 @@ lib/
 ├── main.dart                   # Entry point — khởi tạo DI và runApp
 ├── app.dart                    # MaterialApp.router + l10n + theme
 ├── config/
-│   └── app_config.dart         # Spotify API URLs, hằng số (từ --dart-define)
+│   └── app_config.dart         # iTunes API URLs, hằng số (từ --dart-define)
 ├── l10n/
 │   ├── app_en.arb              # Chuỗi tiếng Anh
 │   └── app_vi.arb              # Chuỗi tiếng Việt
